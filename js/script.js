@@ -1,6 +1,8 @@
+/* Membuat function */
 function getMovies(){
     $('#listMovie').html("")
         let inputSearch = $('#searchInput').val()
+         /* mengkoneksikan ke API omdbapi.com */
             $.ajax({
             type: "get",
             url: "http://www.omdbapi.com/",
@@ -12,6 +14,7 @@ function getMovies(){
             success: function (movies) {
                 if (movies.Response === "True") {
                     let getMovies = movies.Search
+                    /* Melakukan Foreach */
                     $.each(getMovies, function (i, data) { 
                         $('#listMovie').append(`
                         <div class="col-md-4">
@@ -20,7 +23,7 @@ function getMovies(){
                                 <div class="card-body">
                                     <h5 class="card-title">`+data.Title+`</h5>
                                     <h6 class="card-subtitle mb-2 text-muted">`+data.Year+`</h6>
-                                    <a href="#" class="card-link movieDetail" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="`+data.imdbID+`">See Detail</a>
+                                    <a href="#" class="card-link movieDetail" data-bs-toggle="modal" data-bs-target="#exampleModal" /* membuat data id */ data-id="`+data.imdbID+`">See Detail</a>
                                 </div>
                             </div>
                         </div>`)
@@ -47,7 +50,9 @@ $('#searchInput').keyup( function(e){
 })
 
 $('#listMovie').on('click', '.movieDetail', function(){
+    /* untuk get data id movie */
     let movieID = $(this).data('id')
+     /* mengkoneksikan ke API omdbapi.com */
     $.ajax({
         type: "get",
         url: "http://www.omdbapi.com/",
@@ -58,6 +63,7 @@ $('#listMovie').on('click', '.movieDetail', function(){
         dataType: "json",
         success: function (detail) {
             if (detail.Response === "True") {
+                /* jika ingin melakukan detail movie tidak perlu foreach */
                 $('.modal-body').html(`
                 <div class="container">
                     <div class="row">
