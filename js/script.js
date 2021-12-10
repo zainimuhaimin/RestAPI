@@ -49,6 +49,9 @@ $('#searchInput').keyup( function(e){
     }
 })
 
+/* DOM binding karena class movieDetail pada html tidak ada sblm foreach
+    maka yang harus di ambil id listMovie terlebih dahulu
+*/
 $('#listMovie').on('click', '.movieDetail', function(){
     /* untuk get data id movie */
     let movieID = $(this).data('id')
